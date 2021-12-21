@@ -1,4 +1,4 @@
-package Programmers.Level1;
+package Programmers.Level1.Lotto;
 
 public class Lotto {
 
