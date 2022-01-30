@@ -44,13 +44,26 @@ public class BOJ_2667 {
             // 단지내 집 수 오름차순 출력 위해서
 
             System.out.println(al.size());
-            //
+
             for(int i=0;i<al.size();i++){
                 System.out.println(al.get(i));}
-// https://ballpython.tistory.com/7
 
 
         }
 
+        static int find(int x, int y){
+            visit[x][y] = 1;
+            for(int i=0; i<4;i++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx >= 0 && ny >=0 && nx<N && ny<N){
+                    if(map[nx][ny] == 1 && visit[nx][ny] ==0){
+                        find(nx, ny);
+                        cnt++;
+                    }
+                }
+            }
+            return cnt;
+        }
+
     }
-}
