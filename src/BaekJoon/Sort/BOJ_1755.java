@@ -1,53 +1,57 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+package BaekJoon.Sort;
 
-class Word implements Comparable<Word>{
-    String word;//규칙에 따라 문자열로 변환된 숫자
-    int num;// 실제 숫자
-    public Word(String word,int num) {
-        super();
-        this.word = word;
-        this.num=num;
-    }
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Array;
+import java.sql.SQLOutput;
+import java.util.*;
 
-    @Override
-    public int compareTo(Word o) {// 사전 순 정렬
-        return this.word.compareTo(o.word);
-    }
+public class BOJ_1755{
+    static String[] eng = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-}
-
-public class BOJ_1755 {
-    static int m,n;
-    static ArrayList<Word> list; // 정렬될 변환된 문자열과 숫자가 들어가는 리스트
-    //10은 one zero로 표시하므로 0부터 9까지만 영어로 변환해줄 문자열 표시
-    static String[] arr= {"zero","one","two","three","four","five","six","seven","eight","nine"};
-    public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        m=sc.nextInt();
-        n=sc.nextInt();
-        list=new ArrayList<>();
-        for (int i = m; i<=n; i++) {
-            String temp=Integer.toString(i);
-            char[] ch=temp.toCharArray();// 인덱스에 접근하기 쉽도록 문자 배열로 변환해준다.
-            StringBuilder sb=new StringBuilder(); //숫자를 문자열로 변환해줄 때 더해준다.
-            for (int j = 0; j < ch.length; j++) {
-                sb.append(arr[ch[j]-'0']);
-                if(ch.length>1) {
-                    sb.append(" ");//각 숫자를 공백으로 구분해준다.
-                }
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int m = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        ArrayList<String> lst = new ArrayList<>();
+        for(int i=m;i<=n;i++){
+            String temp = "";
+            if(i>=10){
+                temp += toString(i/10);
+                temp += " ";
             }
-            list.add(new Word(sb.toString(),i)); //(변환된 문자열, 실제 숫자) 쌍을 리스트에 넣어준다.
+            temp += toString(i%10);
+            lst.add(temp);
         }
+        Collections.sort(lst);
+        StringBuilder sb = new StringBuilder();
+        // 문자열을 더할때 기존의 데이터에 더하는 방식을 사용하는 StringBuilder
+        int cnt = 0;
 
-        Collections.sort(list); //정렬해준다. compareTo에 따라 사전순 정렬~
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print(list.get(i).num+" ");
-            if((i+1)%10==0) {//10개를 출력한 후에는 줄바꿈
-                System.out.println();
+        for(int i=0;i<lst.size();i++){
+            String str = lst.get(i);
+            String s[] = str.split(" ");
+            int num=0;
+            if(s.length>1){
+                num += 10* toInt(s[0]);
+                num+=toInt(s[1]);
             }
-
+            else {
+                num+=toInt(s[0]);
+            }
+            sb.append(num+ " ");
+            cnt ++;
+            if(cnt%10==0) sb.append("\n");
         }
+        System.out.println(sb);
+
+    }
+    public static String toString(int i){
+        return eng[i];
+    }
+    public static int toInt(String s){
+        return Arrays.asList(eng).indexOf(s);
     }
 }
