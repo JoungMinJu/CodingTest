@@ -1,6 +1,4 @@
-package Programmers.Level1.Decimal;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+package Programmers.Level1.Integer;
 
 public class Decimal_advanced {
     public int solution(int[] nums) {
