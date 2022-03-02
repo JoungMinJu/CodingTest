@@ -10,6 +10,8 @@ import java.util.StringTokenizer;
 public class BOJ_7562 {
     // 체스판 한 변의 길이
     static int len;
+    // 체스판
+    static int arr[][];
     // 체크
     static boolean check[][];
     // 움직이기 8번
@@ -29,6 +31,7 @@ public class BOJ_7562 {
         for(int i=0;i<n;i++){
             // 체스파 한 변의 길이
             len = Integer.parseInt(br.readLine());
+            arr = new int[len][len];
             check = new boolean[len][len];
             // 시작점
             st = new StringTokenizer(br.readLine());
@@ -41,20 +44,21 @@ public class BOJ_7562 {
             q = new LinkedList<>();
             q.offer(new int[]{startX, startY});
             check[startX][startY] = true;
-            // 정답
-            int answer = -1;
+//            // 정답
+//            int answer = 0;
 
             while(!q.isEmpty()){
-                answer +=1;
                 int[] current = q.poll();
                 int nowX = current[0];
                 int nowY = current[1];
-                if(nowX == endX && nowY == endY) {System.out.println(answer); break;}
+                if(nowX == endX && nowY == endY) {System.out.println(arr[nowX][nowY]); break;}
                 for(int j=0;j<8;j++){
                     int nextX = current[0] + moved[j][0];
                     int nextY = current[1] + moved[j][1];
                     if( nextX < 0 || nextX >= len || nextY < 0 || nextY >= len || check[nextX][nextY] ) continue;
                     check[nextX][nextY] =true;
+                    // 거쳐갔음을 표현하기 위한 방법
+                    arr[nextX][nextY] = arr[nowX][nowY] +1;
                     q.add(new int[]{nextX,nextY});
                 }
             }
