@@ -29,50 +29,59 @@ public class BOJ_10026 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
+        map = new char[n][n];
         for(int i=0;i<n;i++){
             String temp = br.readLine();
-            for(int j=0;j<temp.length();j++){
+            for(int j=0;j<n;j++){
                 map[i][j] = temp.charAt(j);
             }
         }
+        check = new boolean[n][n];
 
-        // BFS 시작
-        q.offer(new int[]{0,0});
-        check[0][0] = true;
-        // 첫번쨰 ans
-        ans_one = 1;
-        while(!q.isEmpty()){
-            int[] current = q.poll();
-            int x = current[0];
-            int y = current[1];
-            char char_check = map[x][y];
-            for(int i=0;i<4;i++){
-                bfs(i, x,y, char_check);
-            }
-        }
-
-
-
-    }
-
-    private static void bfs(int i, int x, int y, char char_check) {
-        int nextX = x + movedX[i];
-        int nextY = x + movedY[i];
-        if(nextX >= 0 && nextX <n && nextY >=0 && nextY < n){
-            if(!check[nextX][nextY]){
-                // 체크가 안되어있는데 같은 영역이면
-                if(char_check == map[nextX][nextY]){
-                    check[nextX][nextY] = true;
-                    q.offer(new int[]{nextX, nextY});
-                }
-                // 체크가 안되어있는데 다른 영역이면
-                if(char_check != map[nextX][nextY]){
-                    char_check = map[nextX][nextY];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(!check[i][j]){
+                    dfs(i,j);
                     ans_one++;
-                    check[nextX][nextY] = true;
-                    q.offer(new int[]{nextX, nextY});
+                }
+            }
+        }
+        check = new boolean[n][n];
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(map[i][j] =='G'){
+                    map[i][j] = 'R';
+                }
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(!check[i][j]){
+                    dfs(i,j);
+                    ans_two++;
+                }
+            }
+        }
+        System.out.println(ans_one+" "+ans_two);
+
+
+    }
+
+    private static void dfs(int x, int y) {
+        check[x][y] = true;
+        char c = map[x][y];
+        for(int i=0;i<4;i++){
+            int newX = x+movedX[i];
+            int newY = y+movedY[i];
+            if(newX >=0 && newX<n&& newY >=0 && newY<n){
+                if (!check[newX][newY] && map[newX][newY]==c) {
+                    dfs(newX, newY);
                 }
             }
         }
     }
+
+
 }
