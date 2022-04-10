@@ -1,4 +1,4 @@
-package Algorithm_Two.CH2.graph_prof;
+package Algorithm_Two.CH5.graph_V2_prof;
 
 public class DfsGraph {
     // 인접행렬을 이용한 DFS 구현

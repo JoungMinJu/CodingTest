@@ -131,10 +131,13 @@ public class BinaryTree {
         else if(current.getLeft()!=null && current.getRight()!=null){
             // 삭제할 노드의 서브트리의 값 a 혹은 b를 찾음
             Node successor = getSuccessor(current);
+            // 케이스 3 : 두개의 자식을 갖는 경우 -> 자식 노드 중에서 삭제할 노드보다 작으면서 가장 큰 값 사제
+            // Node successor = getSuccessorV2(current);
             if(current == root) root = successor;
             else if(isLeftChild) parent.setLeft(successor);
             else parent.setRight(successor);
             successor.setLeft(current.getLeft());
+            // successor.setRight(current.getRight());
         }
         return true;
     }
@@ -156,6 +159,27 @@ public class BinaryTree {
         return successor;
     }
 
+    // 자식 노드 중에서 작으면서 가장 큰 값
+    // 맞는지 확인하기
+    // https://withhamit.tistory.com/450
+    public Node getSuccessorV2(Node deleteNode){
+        Node successor = null;
+        Node successorParent = null;
+        Node current  = deleteNode.getLeft();
+        // 왼쪽 서브트리의 최댓값을 찾는다
+        while(current!=null){
+            successorParent = successor;
+            successor = current;
+            current = current.getRight();
+        }
+        if(successor!=deleteNode.getLeft()){
+            //오른쪽 자식이 없을 때까지 내려오다가
+            // 내가 가진 작은 값을 내위치에 가져다오고
+            successorParent.setRight(successor.getLeft());
+            successor.setLeft(deleteNode.getLeft());
+        }
+        return successor;
+    }
 
     // 중위 순회
     public void inOrderSearch(Node node, int depth){

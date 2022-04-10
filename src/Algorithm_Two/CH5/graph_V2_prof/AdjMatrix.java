@@ -1,4 +1,4 @@
-package Algorithm_Two.CH5;
+package Algorithm_Two.CH5.graph_V2_prof;
 
 import java.util.Scanner;
 
