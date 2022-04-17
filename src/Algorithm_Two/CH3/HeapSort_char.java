@@ -1,53 +1,32 @@
 package Algorithm_Two.CH3;
 
-public class HeapSort {
+public class HeapSort_char {
     public static void main(String[] args) {
-        int[] Array = {0,1,2,6,4,8,7};
+        char[] Array = {'0','A','L','G','O','R','I','T','H','M'};
 
         // 정렬하기 전 배열
         System.out.println("정렬 전 배열");
-        for (int i : Array) {
-            System.out.print(i+" ");
+        for (char c : Array) {
+            System.out.print(c+" ");
         }
 
         // 힙 정렬 사용하여 정렬하기 위해 메소드 호출
         heapSort(Array);
 
-
         System.out.println();
 
         // 정렬 후 배열
         System.out.println("정렬 후 배열");
-        for (int i : Array) {
-            System.out.print(i+" ");
+        for (char c : Array) {
+            System.out.print(c+" ");
         }
-
-        System.out.println();
-
-        //-----------------------------
-
-        int[]  test ={0,57,23,94,83,35,65,80,73};
-
-        System.out.println("빌드힙 하기 전");
-        for (int i : test) {
-            System.out.print(i+" ");
-        }
-
-        buildHeap(test, test.length-1);
-
-        System.out.println("빌드힙 한 후");
-        for (int i : test) {
-            System.out.print(i+" ");
-        }
-
-        System.out.println();
-
 
     }
 
     // 힙 정렬하기
-    public static void heapSort(int[] A){
-        int eh, temp;
+    public static void heapSort(char[] A){
+        int eh;
+        char temp;
         // 힙의 마지막 노드의 지수 eh(0부터 시작하니까 -1 해준다.)
         eh = A.length -1;
 
@@ -71,7 +50,7 @@ public class HeapSort {
         }
     }
 
-    private static void buildHeap(int[] A, int eh) {
+    private static void buildHeap(char[] A, int eh) {
         int bh, x;
         // 힙 조건을 확인 중이 노드의 지수
         bh = (A.length-1)/2+1;
@@ -87,8 +66,9 @@ public class HeapSort {
         }
     }
 
-    private static void pushDown(int[] A, int x, int bh, int eh) {
-        int y, temp;
+    private static void pushDown(char[] A, int x, int bh, int eh) {
+        int y;
+        char temp;
         // A[x]보다 큰 값을 가지는 x의 자식 노드의 지수 구함
         // bh가 웨 필요함..?
         y= findLarge(A,x,eh);
@@ -103,7 +83,7 @@ public class HeapSort {
         }
     }
 
-    private static int findLarge(int[] A, int x, int eh) {
+    private static int findLarge(char[] A, int x, int eh) {
         // A[x]보다 큰 값을 가지는 x의 자식 노드의지수 구하기
         int y=0;
         // 굳이 eh 안해도될것 같은데.. eh= A.length-1;
