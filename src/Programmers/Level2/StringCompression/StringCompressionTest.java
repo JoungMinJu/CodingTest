@@ -1,4 +1,4 @@
-package Programmers.Level2;
+package Programmers.Level2.StringCompression;
 
 public class StringCompressionTest {
     public static void main(String[] args) {
