@@ -18,6 +18,7 @@ public class SimpleServer {
         try{
             serverSocket = new ServerSocket(8404);
             System.out.println("Server ON...");
+
             s1 = serverSocket.accept(); // 해당 클라이언트와 통신할 수 있는 소켓 만듬
             os = s1.getOutputStream(); // 데이터 보내기 위한
             RecThread rThread = new RecThread(s1);
