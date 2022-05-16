@@ -28,6 +28,8 @@ public class BOJ_13305_two {
         for(int i=0;i<n;i++){
             oil[i] = Long.parseLong(st.nextToken());
              }
+
+
         // 계산
         long oil_price = Integer.MAX_VALUE;
         long answer = 0;
