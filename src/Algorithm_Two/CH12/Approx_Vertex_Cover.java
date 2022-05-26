@@ -32,6 +32,7 @@ public class Approx_Vertex_Cover {
         for(int i=0;i<n;i++){
             visited[i] = false;
         }
+
         // 각 정점에 인접한 정점들을 나타내는 연결 목록 내의 노드들을 차례대로 처리하기 위한 iterator 변수
         Iterator<Integer> i;
         // 모든 간선들을 한 번에 하나씩 고려
@@ -60,7 +61,7 @@ public class Approx_Vertex_Cover {
      // 시작 메소드
      public static void main(String[] args) {
          // 주어진 그래프를 생성한다
-         Approx_Vertex_Cover g = new Approx_Vertex_Cover(6);
+         Approx_Vertex_Cover g = new Approx_Vertex_Cover(6); // 정점 6개
          g.addEdge(0, 1);
          g.addEdge(1, 2);
          g.addEdge(1, 3);
