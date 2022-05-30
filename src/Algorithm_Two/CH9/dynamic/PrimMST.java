@@ -32,9 +32,10 @@ public class PrimMST {
                     if (w[b][near[b]] < minval) {
                         minval = w[b][near[b]];
                         newred = b;
-                        //System.out.println("w[b][near[b]] : "+ w[b][near[b]]);
                     }
             }
+            // minval 가진 적색 정점
+            System.out.println(newred);
 
             // 청색 정점 newred를 적색으로 변경한다
             isblue[newred] = false;

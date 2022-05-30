@@ -5,7 +5,6 @@ public class Hamiltonian {
     int[] path; // 해밀토니안 회로 내의 정점들을 저장하는배열
 
     public static void main(String[] args) {
-        // 이게 무슨 문법일꼬
         Hamiltonian hamil = new Hamiltonian();
         hamil.path = new int[10];
         // 그래프는 인접 행렬로 나타낸다.
@@ -21,7 +20,6 @@ public class Hamiltonian {
 
     private void hamiltonian(int[][] G, int i) {
         int j;
-        // if에 괄호 안치면 우찌되나
         if (valid(G, i))
             if (i == n - 1) {// 찾은 해밀토니안 회로 path(0,...n-1)을 출력
                 System.out.println("찾은 해밀토니안 회로");
@@ -29,7 +27,7 @@ public class Hamiltonian {
                     System.out.print(path[i] + "->");
                 System.out.println(path[0]);
                 return;
-            } else { //i 번째로 방문할 정점으로 시작 정점을 제외한 모든 정저믈 시도해본다.
+            } else { //i 번째로 방문할 정점으로 시작 정점을 제외한 모든 정점을 시도해본다.
                 for (j = 2; j <= n; j++) {
                     path[i + 1] = j;
                     hamiltonian(G, i + 1);

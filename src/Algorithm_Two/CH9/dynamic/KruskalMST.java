@@ -21,16 +21,16 @@ public class KruskalMST {
 
     int V;	// 정점들의 수
     int E; 	// 간선들의 수
-    Edge edge[]; // 모든 간선들의 배열
+    Edge edge_lst[]; // 모든 간선들의 배열
 
     // V 개의 정점들과 E 개의 간선들을 가진 그래프를 만든다
     KruskalMST(int v, int e) {
         V = v;
         E = e;
-        edge = new Edge[E];
+        edge_lst = new Edge[E];
 
         for (int i = 0; i < E; ++i)
-            edge[i] = new Edge();
+            edge_lst[i] = new Edge();
     }
 
     // 결로 압축 기법을 사용하여 요소 i가 속한 부분집합을 찾는 메소드
@@ -71,9 +71,9 @@ public class KruskalMST {
             result[i] = new Edge();
 
         // 단계 1: 모든 간선들을 가중치 순서로 오름차순으로 정렬한다
-        Arrays.sort(edge);
-        for(i=0;i<V;++i) {
-            System.out.println(edge[i].weight);
+        Arrays.sort(edge_lst);
+        for(i=0;i<E;++i) {
+            System.out.println(edge_lst[i].weight);
         }
         // V 개의 부분집합들을 위한 배열을 만든다
         subset subsets[] = new subset[V];
@@ -95,7 +95,7 @@ public class KruskalMST {
             // 가중치가 가장 작은 간선을 선택한다.
             // 다음 반복을 위해 지수를 1만큼 증가시킨다
             Edge next_edge = new Edge();
-            next_edge = edge[i];
+            next_edge = edge_lst[i];
             i++;
 
             // 선택된 간선의 정점들이 속한 부분집합을 찾는다
@@ -134,12 +134,31 @@ public class KruskalMST {
         System.out.println("간선의 두 정점들과 가중치를 차례대로 입력하세요");
 
         for (int i = 0;  i < E; i++) {
-            graph.edge[i].src = scan.nextInt();
-            graph.edge[i].dest = scan.nextInt();
-            graph.edge[i].weight = scan.nextInt();
+            graph.edge_lst[i].src = scan.nextInt();
+            graph.edge_lst[i].dest = scan.nextInt();
+            graph.edge_lst[i].weight = scan.nextInt();
         }
 
         // 크루스칼 알고리즘을 이용하여 최소 비용 신장 트리를 찾는다
         graph.KruskalMST();
     }
 }
+/**
+ * 0 1 2
+ * 0 4 4
+ * 1 2 8
+ * 1 4 4
+ * 2 3 7
+ * 2 4 6
+ * 3 4 3
+ *
+ * output
+ *
+ * 찾은 최소 비용 신장 트리
+ *
+ * 간선	가중치
+ * (0, 1)	  2
+ * (3, 4)	  3
+ * (0, 4)	  4
+ * (2, 4)	  6
+ */
