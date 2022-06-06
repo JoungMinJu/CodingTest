@@ -4,8 +4,8 @@ public class AllPairsShortestPath {
     // 모든 쌍 최단 경로 찾기 프로이드 알고리즘
     final static int INF = 9999;
 
-    void findAllPairShortestPath(int[][] graph, int n){
-        int dist[][] = new int[n][n];
+    void findAllPairShortestPath(float[][] graph, int n){
+        float dist[][] = new float[n][n];
         int i,j,k;
 
         // 행렬 D를 가중치 행렬 graph로 초기화한다.
@@ -31,7 +31,7 @@ public class AllPairsShortestPath {
         printSolution(dist, n);
     }
     // 최단 거리 행렬 dist[0..n-1, 0..n-1]을 출력한다.
-    void printSolution(int dist[][], int n){
+    void printSolution(float dist[][], int n){
         int i,j;
         System.out.println("모든 두 정점들 쌍 사이의 최단 거리 행렬");
         for(i=0;i<n;i++){
@@ -43,16 +43,27 @@ public class AllPairsShortestPath {
         }
     }
 
+//    public static void main(String[] args) {
+//        int[][] graph = {{0, INF, 2, INF},
+//                        {1, 0, INF, INF},
+//                        {INF, 8, 0, 3},
+//                        {6, 4, INF, 0}};
+//
+//        int n = 4;
+//
+//        AllPairsShortestPath a = new AllPairsShortestPath();
+//        // 최단 거리 행렬을 계산한 후 출력한다.
+//        a.findAllPairShortestPath(graph, n);
+//    }
+
     public static void main(String[] args) {
-        int[][] graph = {{0, INF, 2, INF},
-                        {1, 0, INF, INF},
-                        {INF, 8, 0, 3},
-                        {6, 4, INF, 0}};
-
-        int n = 4;
-
+        float[][] graph = {{0,1,INF, INF, 5},
+                {INF,0, (float) 1.1,INF,INF},
+                {2, INF,0, INF, 2},
+                {3, 3, (float)1.4, 0, INF},
+                {INF, (float)1.2, INF, (float)1.3, 0}};
+        int n =5 ;
         AllPairsShortestPath a = new AllPairsShortestPath();
-        // 최단 거리 행렬을 계산한 후 출력한다.
-        a.findAllPairShortestPath(graph, n);
+        a.findAllPairShortestPath(graph,n);
     }
 }
