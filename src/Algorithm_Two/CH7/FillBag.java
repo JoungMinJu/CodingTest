@@ -1,5 +1,7 @@
 package Algorithm_Two.CH7;
 
+import java.util.Arrays;
+
 public class FillBag {
     // 용량이 W인 배낭에 n개의 물건들을 넣엇 ㅓ어등ㄹ 수 있는 최대 가치를 계산한다.
     static int knapSack(int W, int weight[], int value[], int n){
@@ -17,14 +19,15 @@ public class FillBag {
                 else K[i][j] = Math.max(value[i-1]+K[i-1][j-weight[i-1]],K[i-1][j]);
             }
         }
+
         return K[n][W];
     }
 
     public static void main(String[] args) {
-        int value[] = {25,15,20,30};
-        int weight[] = {3,1,2,4};
+        int value[] = {20, 30, 40, 50};
+        int weight[] = {3, 4, 6, 2};
 
-        int C = 7;
+        int C = 10;
 
         int n= value.length;
         System.out.println("최대 가치="+knapSack(C, weight, value,n));
