@@ -8,6 +8,7 @@ import java.util.*;
 public class CH1 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
         int n, m, d;
         int t = Integer.parseInt(br.readLine());
@@ -16,40 +17,36 @@ public class CH1 {
         int now_cut; // di 일에 자른 잔디의 길이
         long answer; // 최종 답
         PriorityQueue<Integer> grass;
-        Queue<Integer> oil;
 
-        for(int test=0; test<t; test++){
+        for(int test=0; test<t; test++) {
             st = new StringTokenizer(br.readLine());
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
             d = Integer.parseInt(st.nextToken());
-            grass =  new PriorityQueue<>(Collections.reverseOrder());
-            oil = new LinkedList<>();
+            grass = new PriorityQueue<>(Collections.reverseOrder());
             answer = 0L;
 
             // 입력
-            for(int i=0;i<n;i++){
+            for (int i = 0; i < n; i++) {
                 st = new StringTokenizer(br.readLine());
-                for(int j=0; j<m; j++)
+                for (int j = 0; j < m; j++)
                     grass.add(Integer.parseInt(st.nextToken()));
             }
 
+            // 입력과 함께 계산 시작
             st = new StringTokenizer(br.readLine());
-            for(int i=0; i<d; i++)
-                oil.add(Integer.parseInt(st.nextToken()));
-
-            // 계산 시작
-            for(int day=1;day<=d;day++){
-                now_oil = oil.poll();
+            for (int day = 1; day <= d; day++){
+                now_oil = Integer.parseInt(st.nextToken());
                 now_cut = 0;
-                for(int j=0; j<now_oil; j++){
+                for (int j = 0; j < now_oil; j++) {
                     now_grass = grass.poll() + day;
-                    now_cut += now_grass -1;
-                    grass.add(1-day);
-                }
-                answer += day*now_cut;
-            }
-            System.out.println("#"+(test+1)+" "+answer);
+                    now_cut += now_grass - 1;
+                    grass.add(1 - day);
+                 }
+                answer += day * now_cut;
         }
+            sb.append("#"+(test+1)+" "+answer+"\n");
+        }
+        System.out.println(sb.toString());
     }
 }
