@@ -54,15 +54,27 @@ public class CH2 {
             int [] now = q.poll();
             for(int i=0;i<4;i++){
                 int newX = now[0] + dx[i];
-                int newY = now[1] +dy[i];
+                int newY = now[1] + dy[i];
                 if(newX >= 0 && newX < n && newY >= 0 && newY < m){
-                    if(!visited[newX][newY] && (map[newX][newY] > 0 || map[newX][newY] == -1)){
-                        // 엑칼이라면 (체크)
-                        q.offer(new int[]{newX, newY});
-                        visited[newX][newY] = true;
-                        map[newX][newY] = map[now[0]][now[1]] +1;
+                    if(!visited[newX][newY]){
+                        if(map[newX][newY] > 0 || map[newX][newY] == -1){
+                            if(map[newX][newY] == -1)
+                                success_ex ++;
+                            q.offer(new int[]{newX, newY});
+                            visited[newX][newY] = true;
+                            map[newX][newY] = map[now[0]][now[1]] +1;
+                        }
+                        if( success_ex == 3 && map[newX][newY] == 0){
+                            q.offer(new int[]{newX, newY});
+                            visited[newX][newY] = true;
+                            map[newX][newY] = map[now[0]][now[1]] +1;}
+                        if( map[newX][newY] == -2){
+                            visited[newX][newY] = true;
+                            map[newX][newY] = map[now[0]][now[1]] +1;
+                            System.out.println(map[newX][newY]);
+                        }
                     }
-                    // 엑칼 다 모았는지 확인하는 과정 필요
+
                 }
             }
         }
