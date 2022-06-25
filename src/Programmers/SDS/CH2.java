@@ -8,12 +8,23 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class CH2 {
-    static int map[][];
+    static Point map[][];
     static int n, m, r, k;
-    static int success_ex; // 다 모았는지 확인위한 변수
     static boolean[][] visited;
     static int dx[] = {-1, 1, 0, 0};
     static int dy[] = {0, 0, -1, 1};
+
+    static class Point{
+        int num;
+        int get_ex;
+        boolean visited;
+
+        public Point(int num) {
+            this.num = num;
+            this.get_ex = 0;
+            this.visited = false;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         // ABC를 모아서 왕궁으로 가서 새로운 왕이 되고 싶다.
@@ -27,18 +38,17 @@ public class CH2 {
             m = Integer.parseInt(st.nextToken());
             r = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
-            map = new int[n][m];
+            map = new Point[n][m];
             visited = new boolean[n][m];
-            success_ex = 0;
             // 입력
             for(int i=0; i<n;i++){
                 String input = br.readLine();
                 for(int j=0;j<m;j++){
                     char tmp = input.charAt(j);
-                    if(tmp == '.') map[i][j] = 1;
-                    else if(tmp == 'X') map[i][j] = 0;
-                    else if(tmp == 'A' || tmp == 'B' || tmp == 'C') map[i][j] = -1;
-                    else if(tmp == 'S') map[i][j] = -2;
+                    if(tmp == '.') map[i][j] = new Point(1);
+                    else if(tmp == 'X') map[i][j] = new Point(0);
+                    else if(tmp == 'A' || tmp == 'B' || tmp == 'C') map[i][j] = new Point(-1);
+                    else if(tmp == 'S') map[i][j] = new Point(-2);
                 }
             }
             bfs();
@@ -48,7 +58,8 @@ public class CH2 {
 
     private static void bfs() {
         Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{r,k});
+        q.offer(new int[]{r-1,k-1});
+        map[r-1][k-1].visited = true;
 
         while(!q.isEmpty()){
             int [] now = q.poll();
@@ -56,21 +67,22 @@ public class CH2 {
                 int newX = now[0] + dx[i];
                 int newY = now[1] + dy[i];
                 if(newX >= 0 && newX < n && newY >= 0 && newY < m){
-                    if(!visited[newX][newY]){
-                        if(map[newX][newY] > 0 || map[newX][newY] == -1){
-                            if(map[newX][newY] == -1)
-                                success_ex ++;
+                    if(!map[newX][newY].visited){
+                        if( map[newX][newY].num > 0 || map[newX][newY].num == -1){
+                            if( map[newX][newY].num == -1)
+                                map[newX][newY].get_ex = map[now[0]][now[1]].get_ex+1;
                             q.offer(new int[]{newX, newY});
-                            visited[newX][newY] = true;
-                            map[newX][newY] = map[now[0]][now[1]] +1;
+                            map[newX][newY].visited = true;
+                            map[newX][newY].num= map[now[0]][now[1]].num +1;
                         }
-                        if( success_ex == 3 && map[newX][newY] == 0){
+                        if( map[newX][newY].get_ex == 3 && map[newX][newY].num== 0){
                             q.offer(new int[]{newX, newY});
-                            visited[newX][newY] = true;
-                            map[newX][newY] = map[now[0]][now[1]] +1;}
-                        if( map[newX][newY] == -2){
-                            visited[newX][newY] = true;
-                            map[newX][newY] = map[now[0]][now[1]] +1;
+                            map[newX][newY].visited = true;
+                            map[newX][newY].num= map[now[0]][now[1]].num +1;
+                        }
+                        if( map[newX][newY].num == -2 && map[newX][newY].get_ex == 3){
+                            map[newX][newY].visited = true;
+                            map[newX][newY].num= map[now[0]][now[1]].num +1;
                             System.out.println(map[newX][newY]);
                         }
                     }
