@@ -22,8 +22,7 @@ public class CH2 {
         public Point(int num) {
             this.num = num;
             this.get_ex = 0;
-            this.visited = false;
-        }
+            this.visited = false;}
     }
 
     public static void main(String[] args) throws IOException {
