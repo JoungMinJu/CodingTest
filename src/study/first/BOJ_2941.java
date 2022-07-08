@@ -1,4 +1,4 @@
-package study;
+package study.first;
 
 import java.io.BufferedReader;
 import java.io.IOException;
