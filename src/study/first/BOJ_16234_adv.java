@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class BOJ_16234 {
+public class BOJ_16234_adv {
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
     static int map[][];
     static boolean visited[][];
     static int n, l, r;
+    static int answer =0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +21,7 @@ public class BOJ_16234 {
         r = Integer.parseInt(st.nextToken()); // 인구이동조건 상한
         map = new int[n][n];
 
-        // 입력
+        // 입력A
         for(int i=0; i<n; i++){
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<n; j++){
@@ -29,72 +30,67 @@ public class BOJ_16234 {
         }
         // bfs // 반복하면서 개수세기
         // 1은 걍 연결 요소 없는것
-        int answer =0;
-        while(true){
+        while(true) {
+            boolean canBFS = false;
+
             visited = new boolean[n][n];
-            Deque<Integer> check_result = check_map();
-            int check_count = check_result.pollFirst();
-            if(check_count == 1)
-                break;
-            else if (check_count > 1){
-                answer ++;
-                int tmp = check_result.pollLast()/check_count;
-                while(check_result.isEmpty()){
-                    int nowX = check_result.pollFirst();
-                    int nowY = check_result.pollFirst();
-                    map[nowX][nowY] = tmp;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (!visited[i][j]) {
+                        if (bfs(new int[]{i, j})) canBFS = true;
+                    }
                 }
             }
+
+            if (!canBFS) break;
+            else answer++;
         }
         System.out.println(answer);
 
-
     }
 
-    private static Deque<Integer> check_map() {
-        Deque<Integer> bfs_result = new LinkedList<>();
-        Loop1:
-        for(int i=0; i<n; i++){
-            Loop2:
-            for(int j=0; j<n; j++){
-                bfs_result = bfs(new int[]{i, j});
-                if(bfs_result.getFirst() != 1)
-                    break Loop1;
-            }
-        }
-        return bfs_result;
-    }
+    static boolean  bfs(int[] start){
+        boolean tmp_ans = false;
 
-    static Deque<Integer>  bfs(int[] start){
+        // 연합에 속하는 나라의 좌표
+        ArrayList<int[]> lst = new ArrayList<>();
+        lst.add(new int[]{start[0],start[1]});
+        // 연합 나라 개수
+        int count = 1;
+        // 합계
+        int sum = map[start[0]][start[1]];
+        // bfs 위한 큐
         Queue<int []> q = new LinkedList<>();
         // 시작할 x축 y축 넣어주기
         q.offer(start);
         // 시작 노드 방문 처리
         visited[start[0]][start[1]] = true;
-        // 배열 삽입
-        Deque<Integer> deque = new LinkedList<>();
-        int count = 0;
-        int sum = 0;
         while(!q.isEmpty()) {
-            count++;
             int[] now = q.poll();
-            deque.addLast(now[0]);
-            deque.addLast(now[1]);
-            sum += map[now[0]][now[1]];
             for(int i=0; i<4; i++){
                 int nextX = now[0] + dx[i];
                 int nextY = now[1] + dy[i];
 
                 if(nextX >= 0 && nextX < n && nextY >=0 && nextY <n ){
                     if(Math.abs(map[now[0]][now[1]] - map[nextX][nextY]) >= l && Math.abs(map[now[0]][now[1]] - map[nextX][nextY])<=r && !visited[nextX][nextY]){
+                        lst.add(new int[]{nextX, nextY});
+                        count ++;
+                        sum += map[nextX][nextY];
                         visited[nextX][nextY] = true;
                         q.offer(new int[]{nextX, nextY});
                     }
                 }
+            }}
+            if(lst.size() > 1){
+                // 인구 이동이 일어난 경우
+                tmp_ans = true;
+                int result= sum / count;
+                for(int i=0; i<lst.size(); i++){
+                    int[] p = lst.get(i);
+                    map[p[0]][p[1]] = result;
+                }
             }
-        }
-        deque.addFirst(count);
-        deque.addLast(sum);
-        return deque;
+
+        return tmp_ans;
     }
 }
