@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BOJ_16926 {
+public class BOJ_16926_snail {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -25,51 +25,30 @@ public class BOJ_16926 {
         }
 
         // 도는 위치
-//        char d[] = {'d','r','u','l', 'n'};
+//        char d[] = {'d','r','u','l'};
         int d[] = {1,2,3,4};
         // 내려가는 방향
         int dx[] = {1, 0, -1, 0};
         int dy[] = {0, 1, 0, -1};
-        int index = 0;
+        int index = 3;
 
         int i=0;
-        int j=0;
+        int j=m-1;
         direct[i][j] = d[index];
         // 해당 위치에서 움직여야하는 방향이 저장되어있는 direct 배열 만들기
         while(true){
             // i와 j가 채워지기 전 중에서 이동의 맨 끝이어야만한다.
             i += dx[index];
             j += dy[index];
-
-            if(i== -1 || j == -1 || i==n || j==m || direct[i][j]!=0){
+            if(i== -1 || j == -1 || i==n || j==m || direct[i][j] != '\u0000'){
                 i -= dx[index];
                 j -= dy[index];
                 index = (index+1)%4;
-                if(direct[i][j] != 0 && index == 0){
-                    i+=1;
-                    index = 0;
-                    if(direct[i][j] != 0) {
-                        // 이미 차있으면
-                        // 이전 위치의 값을 4로 바꿔주고 // 이게 아직 구현 안됨
-                        direct[i-1][j] = 4;
-                        break;
-                    }
-                    direct[i][j] = d[index];
-                    if(isFull(direct)){
-                        direct[i][j] = 5; // 움직이지 않는다는 의미
-                    }
-                    continue;
-                }
             }
             direct[i][j] = d[index];
             if(isFull(direct))
                 break;
         }
-
-        for(int x = 0; x<n; x++){
-            for(int y=0; y<m; y++)
-                System.out.print(direct[x][y] + " ");
-        System.out.println();}
 
         int[][] answer = new int[n][m];
 
