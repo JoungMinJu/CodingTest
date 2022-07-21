@@ -19,9 +19,8 @@ public class BOJ_16926 {
         int map[][] = new int[n][m];
         for(int i=0;i<n;i++){
             st = new StringTokenizer(br.readLine());
-            for(int j=0;j <m; j++){
+            for(int j=0;j <m; j++)
                 map[i][j] = Integer.parseInt(st.nextToken());
-            }
         }
 
         // 도는 위치
@@ -55,9 +54,8 @@ public class BOJ_16926 {
                         break;
                     }
                     direct[i][j] = d[index];
-                    if(isFull(direct)){
+                    if(isFull(direct))
                         direct[i][j] = 5; // 움직이지 않는다는 의미
-                    }
                     continue;
                 }
             }
@@ -69,10 +67,10 @@ public class BOJ_16926 {
         for(int x = 0; x<n; x++){
             for(int y=0; y<m; y++)
                 System.out.print(direct[x][y] + " ");
-        System.out.println();}
+            System.out.println();
+        }
 
         int[][] answer = new int[n][m];
-
 
         for(int t=0; t<r; t++){
             for(int x=0; x<n; x++){
