@@ -1,4 +1,4 @@
-package study.second;
+package study.B;
 
 
 import java.io.BufferedReader;
