@@ -15,7 +15,7 @@ public class BOJ_11050 {
     }
 
     static int factiorial(int n ){
-        if(n<=1) return n;
+        if(n<=1) return 1;
         return factiorial(n-1) * n;
     }
 }
