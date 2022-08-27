@@ -8,6 +8,8 @@ public class BOJ_6588 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // (4보다 큰 모든 짝수)는 두 (홀수 소수)의 합으로 나타낼 수 있다.
+
+        // 소수 판별
         boolean[] notPrime = new boolean[1000001];
         notPrime[0] = notPrime[1] = true; // 소수는 false
 
@@ -18,6 +20,7 @@ public class BOJ_6588 {
             }
         }
 
+        // 판별 알고리즘
         int n = Integer.parseInt(br.readLine());
         while(n != 0){
             boolean isProve = false;
