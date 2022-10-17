@@ -1,4 +1,4 @@
-package Doit.C;
+package DoIt.C;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,28 +20,22 @@ public class BOJ_1940 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int sum = 0;
-        int count = 0;
-        int start = 0;
-        int end = -1;
 
         Arrays.sort(arr);
-
-        while(end<n){
-            if(sum < m){
-                end ++;
-                if(end <n) sum += arr[end];
-            }
-            else if( sum > m){
-                sum -= arr[start];
+        // 연속이 아니라 두 가지 조합을 찾는 것이기 때문에 end가 배열 끝을 가리키고 있어야한다.
+        int count = 0;
+        int start = 0;
+        int end  = n-1;
+        while(start<end){
+            if(arr[start] + arr[end] < m) start++;
+            else if(arr[start]+arr[end] > m) end--;
+            else{
+                count++;
                 start++;
-            }
-            else {
-                count ++;
-                end++;
-                if(end <n) sum += arr[end];
+                end--;
             }
         }
+
         System.out.println(count);
     }
 }
