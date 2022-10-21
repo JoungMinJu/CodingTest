@@ -1,4 +1,4 @@
-package DoIt.C;
+package Doit.C;
 
 import java.io.BufferedReader;
 import java.io.IOException;
