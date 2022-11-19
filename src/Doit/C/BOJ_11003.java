@@ -1,4 +1,4 @@
-package DoIt.C;
+package Doit.C;
 
 import java.io.*;
 import java.util.Deque;
