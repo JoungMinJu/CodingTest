@@ -46,9 +46,7 @@ public class BOJ_3085 {
     private static int getAnswer(String[][] map, int nowX, int nowY, int nextX, int nextY) {
         int answer = -1;
         int count;
-        String tmp = map[nowX][nowY];
-        map[nowX][nowY] = map[nextX][nextY];
-        map[nextX][nextY] = tmp;
+        switchValue(map, nowX, nowY, nextX, nextY);
 
         // 가로
         for (int i = 0; i < map.length; i++) {
@@ -57,6 +55,7 @@ public class BOJ_3085 {
             for (int j = 1; j < map[i].length; j++) {
                 if(before.equals(map[i][j])) {
                     count++;
+                    answer = Math.max(answer, count);
                 }
                 else {
                     answer = Math.max(answer, count);
@@ -73,6 +72,7 @@ public class BOJ_3085 {
             for (int i  = 1; i<map.length; i++){
                 if(before.equals(map[i][j])){
                     count ++;
+                    answer = Math.max(answer, count);
                 }
                 else {
                     answer = Math.max(answer, count);
@@ -81,6 +81,13 @@ public class BOJ_3085 {
                 }
             }
         }
+        switchValue(map, nowX, nowY, nextX, nextY);
         return answer;
+    }
+
+    private static void switchValue(String[][] map, int x1, int y1, int x2, int y2){
+        String tmp = map[x1][y1];
+        map[x1][y1] = map[x2][y2];
+        map[x2][y2] = tmp;
     }
 }
