@@ -25,8 +25,8 @@ public class BOJ_1018 {
             }
         }
 
-        for (int i = 0; i < n % 8 + 1; i++) {
-            for (int j = 0; j < m % 8 + 1; j++) {
+        for (int i = 0; i <= n - 8 ; i++) {
+            for (int j = 0; j <= m - 8 ; j++) {
                 answer = Math.min(answer, getAnswer(map.clone(), i, j, i + 8, j + 8));
             }
         }
@@ -34,29 +34,26 @@ public class BOJ_1018 {
     }
 
     private static int getAnswer(char[][] map, int startX, int startY, int endX, int endY) {
-        int count = 0, answer = 50 * 50 + 1;
+        int firstCount = 0, secondCount = 0;
+        boolean isFirstRow = true;
         // 확인해보기
         int index = order.indexOf(map[startX][startY]);
         for (int i = startX + 1; i < endX; i++) {
             if (order.charAt((index + 1) % 2) != map[i][startY]) {
-                count++;
+                firstCount++;
             }
             index++;
         }
-
-        answer = count;
 
         index = order.indexOf(map[startX][endY - 1]);
         for (int i = startX + 1; i < endX; i++) {
             if (order.charAt((index + 1) % 2) != map[i][endY - 1]) {
-                count++;
+                secondCount++;
             }
             index++;
         }
 
-        answer = Math.min(answer, count);
-
-        if (answer != count) {
+        if (firstCount <= secondCount){
             return getAnswerFirstColumn(map, startX, startY, endX, endY);
         }
         return getAnswerLastColumn(map, startX, startY, endX, endY);
@@ -117,7 +114,7 @@ public class BOJ_1018 {
         // 나머지 열 맞추기
         for (int i = startX; i < endX; i++) {
             index = order.indexOf(map[i][endY - 1]);
-            for (int j = endY - 2; j >= 0; j--) {
+            for (int j = endY - 2; j >= startY; j--) {
                 if (order.charAt((index + 1) % 2) != map[i][j]) {
                     count++;
                     changeIndexes.add(List.of(i, j));
