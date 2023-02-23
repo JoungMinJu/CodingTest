@@ -1,4 +1,4 @@
-package Reis.twoPointer;
+package Reis.twoPointer_slidingWindow;
 
 public class continueNumber {
     public int solution(int n) {
